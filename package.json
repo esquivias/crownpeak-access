@@ -1,0 +1,40 @@
+{
+	"name": "crownpeak-access",
+	"version": "1.1.0",
+	"description": "Crownpeak Access API library and command line interface.",
+	"main": "./dist/index.js",
+	"types": "./dist/index.d.ts",
+	"scripts": {
+		"build": "tsc",
+		"eslint": "eslint . --ext .ts",
+		"prepare": "npm run build",
+		"prepublishOnly": "npm run build",
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"repository": "github:esquivias/crownpeak-access",
+	"bin": {
+		"crownpeak": "./dist/cli/index.js"
+	},
+	"keywords": [
+		"crownpeak",
+		"acccess",
+		"api"
+	],
+	"author": "Daniel Esquivias",
+	"license": "MIT",
+	"devDependencies": {
+		"@types/inquirer": "^6.5.0",
+		"@typescript-eslint/eslint-plugin": "^2.20.0",
+		"@typescript-eslint/parser": "^2.20.0",
+		"eslint": "^6.8.0",
+		"eslint-config-prettier": "^6.10.0",
+		"typescript": "^3.7.5"
+	},
+	"dependencies": {
+		"@types/node": "^13.5.3",
+		"axios": "^0.19.2",
+		"axios-cookiejar-support": "^0.5.1",
+		"inquirer": "^7.0.4",
+		"tough-cookie": "^3.0.1"
+	}
+}
