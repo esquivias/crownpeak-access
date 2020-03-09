@@ -1,13 +1,14 @@
 #!/usr/bin/env node
-
 import { existsSync, readFileSync } from "fs";
 import { CookieJar } from "tough-cookie";
 import Auth from "../auth";
 import Asset from "../asset";
 import Workflow from "../workflow";
 import { ResultCodeType } from "../model";
+import Helper from "../helper";
 
 try {
+	const helper = new Helper();
 	const path = "./crownpeak.config.json";
 	if (existsSync(path)) {
 		const crownpeakConfig = JSON.parse(readFileSync(path, "utf8"));
@@ -30,9 +31,10 @@ try {
 				asset
 					.fields({ assetId: crownpeakConfig.test.assetId })
 					.then(response => {
-						if (asset.hasFieldByName(response, "body")) {
+						if (helper.assetHasFieldByName(response, "body")) {
 							console.log(
-								asset.findFieldByName(response, "body").value
+								helper.assetGetFieldByName(response, "body")
+									.value
 							);
 							asset
 								.update({
@@ -46,11 +48,11 @@ try {
 									console.log(response.resultCode);
 									const workflow = new Workflow(config);
 									workflow.read().then(response => {
-										const wd = workflow.findWorkflowByName(
+										const wd = helper.workflowGetByName(
 											response,
 											crownpeakConfig.test.workflow.name
 										);
-										const wc = workflow.findCommandByName(
+										const wc = helper.workflowGetCommandByName(
 											wd,
 											crownpeakConfig.test.workflow
 												.command
@@ -67,6 +69,36 @@ try {
 												console.log(
 													response.resultCode
 												);
+											});
+
+										// upload test
+										asset
+											.upload({
+												bytes: helper.encodeFileToBase64(
+													"test.png"
+												),
+												destinationFolderId: 545252,
+												workflowId: wd.id,
+												newName: "test.png",
+												modelId: 801
+											})
+											.then(response => {
+												asset
+													.attach({
+														assetId:
+															response.asset.id,
+														bytes: helper.encodeFileToBase64(
+															"test.png"
+														),
+														originalFilename:
+															"google.png"
+													})
+													.then(response => {
+														console.log("attach:");
+														console.log(response);
+													});
+												console.log("upload:");
+												console.log(response);
 											});
 									});
 								});

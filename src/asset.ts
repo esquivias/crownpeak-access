@@ -10,7 +10,7 @@ import {
 
 export interface AttachRequest {
 	assetId: number;
-	bytes: string; //bytes (base64 encoded data?)
+	bytes: string;
 	originalFilename: string;
 }
 export interface AttachResponse extends Response {
@@ -301,8 +301,11 @@ export interface UndeleteRequest {
 
 export type UndeleteResponse = Response;
 
+/**
+ * Hint: Model ID might be the base_model_id.
+ */
 export interface UploadRequest {
-	bytes: string; //bytes (base64 encoded data?)
+	bytes: string;
 	destinationFolderId: number;
 	modelId: number;
 	newName: string;
@@ -523,31 +526,6 @@ export default class Asset extends Crownpeak implements Interface {
 	 */
 	async upload(uploadRequest: UploadRequest): Promise<UploadResponse> {
 		return super.post("asset/upload", uploadRequest);
-	}
-
-	/**
-	 *
-	 * Helpers
-	 */
-
-	/**
-	 *
-	 * @param fieldsResponse
-	 * @param name
-	 */
-	findFieldByName(fieldsResponse: FieldsResponse, name: string): Field {
-		const field = fieldsResponse.fields.find(field => field.name == name);
-		return field ? field : this.throwError(`Unable to find field: ${name}`);
-	}
-
-	/**
-	 *
-	 * @param fieldsResponse
-	 * @param name
-	 */
-	hasFieldByName(fieldsResponse: FieldsResponse, name: string): boolean {
-		const field = fieldsResponse.fields.find(field => field.name == name);
-		return field ? true : false;
 	}
 
 	/**
