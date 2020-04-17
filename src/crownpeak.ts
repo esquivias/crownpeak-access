@@ -1,6 +1,6 @@
 import axios from "axios";
 import axiosCookieJarSupport from "axios-cookiejar-support";
-import tough from "tough-cookie";
+import * as tough from "tough-cookie";
 import { ResultCodeType } from "./model";
 
 export interface Response {
