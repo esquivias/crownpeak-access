@@ -1,7 +1,16 @@
 import Crownpeak, { Configuration, Response, Interface } from "./crownpeak";
+import { ResultCodeType } from "./model";
 
 export interface ReadResponse extends Response {
-	workflows: Map<string, Data>;
+	workflows: Data[] //Map<string, Data>
+}
+
+export interface ReadByIdRequest {
+	id: number
+}
+
+export interface ReadByIdResponse {
+	workflow: Data
 }
 
 export interface Data {
@@ -11,7 +20,7 @@ export interface Data {
 	modifiedBy: string;
 	modifiedDate: string;
 	name: string;
-	stepCommands: StepCommandsData;
+	stepCommands: StepCommandsData[];
 	usage: number;
 }
 
@@ -50,14 +59,31 @@ export default class Workflow extends Crownpeak implements Interface {
 
 	/**
 	 * Get a list of all workflows available for this instance.
-	 *
-	 * @param id Get a workflow based on Id from the current instance.
+	 * 
+	 * @returns `Array` of workflows instead of _Map<string, Data>_;
 	 */
-	async read(id?: number): Promise<ReadResponse> {
-		if (id != undefined) {
-			return super.post(`workflow/read/${id}`);
-		}
-		return super.post("workflow/read");
+	async read(): Promise<ReadResponse> {
+		const responseModification = super.post("workflow/read").then((response: ReadResponse) => {
+			if (response.resultCode == ResultCodeType.Success) {
+				const workflows = response.workflows;
+				response.workflows = [];
+				Object.entries(workflows).forEach((value, _) => {
+					response.workflows.push(value[1]);
+				});
+			} else {
+				response.workflows = [];
+			}
+			return response;
+		});
+		return responseModification;
+	}
+
+	/**
+	 * Get workflow by ID.
+	 * @param id
+	 */
+	async readById(readByIdRequest: ReadByIdRequest): Promise<ReadByIdResponse> {
+		return super.post(`workflow/read/${readByIdRequest.id}`);
 	}
 
 	/**
