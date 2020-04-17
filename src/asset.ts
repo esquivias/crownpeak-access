@@ -243,6 +243,14 @@ export interface PublishRefreshRequest extends PublishRequest {
 
 export type PublishRefreshResponse = PublishResponse;
 
+export interface ReadByPathRequest {
+	path:string
+}
+
+export interface ReadByPathResponse extends Response{
+	asset: WorklistAsset
+}
+
 export interface ReadRequest {
 	assetId: number;
 }
@@ -458,6 +466,15 @@ export default class Asset extends Crownpeak implements Interface {
 	 */
 	async read(readRequest: ReadRequest): Promise<ReadResponse> {
 		return super.post(`asset/read/${readRequest.assetId}`);
+	}
+
+	/**
+	 * Retrieve a CMS asset by its path.
+	 * 
+	 * @param readByPathRequest
+	 */
+	async readByPath(readByPathRequest: ReadByPathRequest): Promise<ReadByPathResponse> {
+		return super.post("asset/readByPath", readByPathRequest);
 	}
 
 	/**
