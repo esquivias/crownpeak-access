@@ -1,17 +1,19 @@
+export * from "./asset";
 export { default as Asset } from "./asset";
+
+export * from "./assetProperties";
+export { default as AssetProperties } from "./assetProperties";
+
+export * from "./auth";
 export { default as Auth } from "./auth";
+
+export * from "./crownpeak";
 export { default as Crownpeak } from "./crownpeak";
-export {
-	ResultCodeType,
-	OrderType,
-	VisibilityType,
-	ColumnType,
-	IconType,
-	WorkflowActionRequiredType,
-	RenderType,
-	WysiwygEditorType,
-	LoginModeType,
-	EditModeType
-} from "./model";
+
+export * from "./model";
+
+export * from "./util";
 export { default as Util } from "./util";
+
+export * from "./workflow";
 export { default as Workflow } from "./workflow";

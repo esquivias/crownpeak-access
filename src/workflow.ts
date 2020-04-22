@@ -1,37 +1,38 @@
 import Crownpeak, { Configuration, Response, Interface } from "./crownpeak";
 import { ResultCodeType } from "./model";
 
-export interface ReadResponse extends Response {
-	workflows: Data[] //Map<string, Data>
+export interface WorkflowReadResponse extends Response {
+	workflows: WorkflowData[] //Map<string, Data>
 }
 
-export interface ReadByIdRequest {
+export interface WorkflowReadByIdRequest {
 	id: number
 }
 
-export interface ReadByIdResponse {
-	workflow: Data
+export interface WorkflowReadByIdResponse {
+	workflow: WorkflowData
 }
 
-export interface Data {
+export interface WorkflowData {
 	assetId: number;
 	description: string;
 	id: number;
 	modifiedBy: string;
 	modifiedDate: string;
 	name: string;
-	stepCommands: StepCommandsData[];
+	stepCommands: WorkflowStepCommandsData[];
 	usage: number;
 }
 
-export interface StepCommandsData {
-	commands: CommandsData[];
+export interface WorkflowStepCommandsData {
+	commands: WorkflowCommandsData[];
 	description: string;
 	stateId: number;
+	stepId: number;
 	subject: string;
 }
 
-export interface CommandsData {
+export interface WorkflowCommandsData {
 	id?: number;
 	workflowId: number;
 	workflowStep: number;
@@ -62,8 +63,8 @@ export default class Workflow extends Crownpeak implements Interface {
 	 * 
 	 * @returns `Array` of workflows instead of _Map<string, Data>_;
 	 */
-	async read(): Promise<ReadResponse> {
-		const responseModification = super.post("workflow/read").then((response: ReadResponse) => {
+	async read(): Promise<WorkflowReadResponse> {
+		const responseModification = super.post("workflow/read").then((response: WorkflowReadResponse) => {
 			if (response.resultCode == ResultCodeType.Success) {
 				const workflows = response.workflows;
 				response.workflows = [];
@@ -82,7 +83,7 @@ export default class Workflow extends Crownpeak implements Interface {
 	 * Get workflow by ID.
 	 * @param id
 	 */
-	async readById(readByIdRequest: ReadByIdRequest): Promise<ReadByIdResponse> {
+	async readById(readByIdRequest: WorkflowReadByIdRequest): Promise<WorkflowReadByIdResponse> {
 		return super.post(`workflow/read/${readByIdRequest.id}`);
 	}
 

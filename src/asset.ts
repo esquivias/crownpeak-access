@@ -4,7 +4,7 @@ import {
 	OrderType,
 	VisibilityType,
 	IconType,
-	WorkflowActionRequiredType,
+	RequiredActionType,
 	RenderType
 } from "./model";
 
@@ -176,7 +176,7 @@ export interface ExecuteWorkflowCommandRequest {
 export interface ExecuteWorkflowCommandResponse extends Response {
 	asset: WorklistAsset;
 	publishingSessionId: number;
-	requiredAction: WorkflowActionRequiredType;
+	requiredAction: RequiredActionType;
 }
 
 export interface ExistsRequest {
@@ -244,10 +244,10 @@ export interface PublishRefreshRequest extends PublishRequest {
 export type PublishRefreshResponse = PublishResponse;
 
 export interface ReadByPathRequest {
-	path:string
+	path: string
 }
 
-export interface ReadByPathResponse extends Response{
+export interface ReadByPathResponse extends Response {
 	asset: WorklistAsset
 }
 
@@ -274,6 +274,13 @@ export interface RouteRequest {
 	stateId: number;
 }
 export type RouteResponse = Response;
+
+export interface RouteAssetsRequest {
+	list: number[],
+	stateId: number,
+	stateChangeCheck: boolean
+}
+export type RouteAssetsResponse = Response;
 
 export interface TemplateProfileRequest {
 	assetId: number;
@@ -354,7 +361,7 @@ export default class Asset extends Crownpeak implements Interface {
 	 * @param branchRequest
 	 */
 	async branch(branchRequest: BranchRequset): Promise<BranchResponse> {
-		return super.post(`asset/branch${branchRequest.assetId}`);
+		return super.post("asset/branch", branchRequest);
 	}
 
 	/**
@@ -503,6 +510,15 @@ export default class Asset extends Crownpeak implements Interface {
 	 */
 	async route(routeRequest: RouteRequest): Promise<RouteResponse> {
 		return super.post("asset/route", routeRequest);
+	}
+
+	/**
+	 * Move assets from one workflow state to another.
+	 *
+	 * @param routeAssetsRequest
+	 */
+	async routeAssets(routeAssetsRequest: RouteAssetsRequest): Promise<RouteAssetsResponse> {
+		return super.post("asset/routeAssets", routeAssetsRequest);
 	}
 
 	/**

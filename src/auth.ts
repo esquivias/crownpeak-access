@@ -1,6 +1,6 @@
 import Crownpeak, { Configuration, Response, Interface } from "./crownpeak";
 import { EditModeType, LoginModeType, WysiwygEditorType } from "./model";
-import { Data as WorkflowData } from "./workflow";
+import { WorkflowData } from "./workflow";
 
 /**
  * Request Information

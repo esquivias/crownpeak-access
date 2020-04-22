@@ -1,5 +1,5 @@
 /**
- * Result Codes
+ * Result Codes Type
  */
 export const enum ResultCodeType {
 	APIError = "conWS_APIError",
@@ -122,9 +122,9 @@ export const enum IconType {
 }
 
 /**
- * Workflow Action Required
+ * Required Action Type
  */
-export enum WorkflowActionRequiredType {
+export enum RequiredActionType {
 	Edit = "Edit",
 	None = "None",
 	SetSchedule = "SetSchedule",
@@ -146,7 +146,7 @@ export enum RenderType {
 }
 
 /**
- * WYSIWYG Editor Type
+ * WYSIWYG Editor
  */
 export enum WysiwygEditorType {
 	Ephox = "Ephox",
@@ -155,7 +155,7 @@ export enum WysiwygEditorType {
 }
 
 /**
- * Login Mode Type
+ * Login Mode
  */
 export enum LoginModeType {
 	None = "Node",
@@ -165,7 +165,7 @@ export enum LoginModeType {
 }
 
 /**
- * Edit Mode TYpe
+ * Edit Mode
  */
 export enum EditModeType {
 	InContext = "InContext",
