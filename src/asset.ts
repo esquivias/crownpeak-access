@@ -45,7 +45,16 @@ export interface DeleteRequest {
 }
 
 export type DeleteResponse = Response;
-
+export interface DownloadAssetsPrepareRequest {
+	assetIDs: number[];
+}
+export interface DownloadAssetsPrepareResponse extends Response {
+	downloadTicket: string;
+	downloadUrl: string;
+	filename: string;
+	fileBuffer: string;
+	exceededDownloadLimit: string;
+}
 export interface PagedRequest {
 	assetId?: number;
 	assetIdToFindPage?: number;
@@ -381,6 +390,15 @@ export default class Asset extends Crownpeak implements Interface {
 	 */
 	async delete(deleteRequest: DeleteRequest): Promise<DeleteResponse> {
 		return super.post(`asset/delete/${deleteRequest.assetId}`);
+	}
+	
+	/**
+	 * Prepare an asset for download.
+	 * 
+	 * @param downloadAssetsPrepareRequest
+	 */
+	 async downloadAssetsPrepare(downloadAssetsPrepareRequest: DownloadAssetsPrepareRequest): Promise<DownloadAssetsPrepareResponse> {
+		return super.post(`asset/downloadassetsprepare`, downloadAssetsPrepareRequest);
 	}
 
 	/**
