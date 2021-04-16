@@ -93,6 +93,7 @@ export interface WorklistAsset {
 	createdBy: string;
 	creator_user_id?: number;
 	deploy_id?: number;
+	dataFilter?: string;
 	error_code: number;
 	error_msg: string;
 	extension: string;
