@@ -36,7 +36,7 @@ export interface BytesResponse extends Response {
 }
 
 /**
- * The Asset Web API function calls are used to manage assets in the CMS.
+ * The Upload Web API function calls are used to manage asset uploads in the CMS.
  *
  * These calls allow external programs to create, update, delete assets using the POST, PUT, and DELETE calls.
  */

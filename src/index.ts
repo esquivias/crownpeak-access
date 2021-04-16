@@ -12,6 +12,9 @@ export { default as Crownpeak } from "./crownpeak";
 
 export * from "./model";
 
+export * from "./upload";
+export { default as Upload } from "./upload";
+
 export * from "./util";
 export { default as Util } from "./util";
 
