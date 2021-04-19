@@ -1,5 +1,5 @@
 import Crownpeak, { Configuration, Interface, Response } from "./crownpeak";
-import  WorklistAsset from "./asset";
+import { WorklistAsset } from "./asset";
 export interface AssetCompleteRequest {
 	destinationId: number;
 	label: string;
