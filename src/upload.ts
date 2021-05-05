@@ -15,7 +15,7 @@ export interface AssetCompleteResponse extends Response {
 export interface AssetPrepareRequest {
 	destinationId: number;
 	label: string;
-	modelId: number;
+	modelId?: number;
 	totalSize: number;
 }
 
