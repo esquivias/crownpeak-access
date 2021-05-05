@@ -1,6 +1,6 @@
 {
 	"name": "crownpeak-access",
-	"version": "1.1.7",
+	"version": "1.2.0",
 	"description": "Crownpeak Access API Typescript Library",
 	"main": "./dist/index.js",
 	"types": "./dist/index.d.ts",
