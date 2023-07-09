@@ -35,6 +35,6 @@
 		"axios": "^0.21.1",
 		"axios-cookiejar-support": "^0.5.1",
 		"inquirer": "^7.0.4",
-		"tough-cookie": "^3.0.1"
+		"tough-cookie": "^4.1.3"
 	}
 }
